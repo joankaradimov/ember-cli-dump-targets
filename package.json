@@ -1,0 +1,29 @@
+{
+  "name": "ember-cli-dump-targets",
+  "version": "0.0.1",
+  "description": "Dump the contents of targets.js in an explicit form for ember applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joankaradimov/ember-cli-dump-targets.git"
+  },
+  "keywords": [
+    "ember-addon",
+    "ember",
+    "babel",
+    "es6"
+  ],
+  "author": "Joan Karadimov <joan.karadimov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joankaradimov/ember-cli-dump-targets/issues"
+  },
+  "homepage": "https://github.com/joankaradimov/ember-cli-dump-targets",
+  "devDependencies": {
+    "jasmine": "2.8.0"
+  },
+  "dependencies": {}
+}
