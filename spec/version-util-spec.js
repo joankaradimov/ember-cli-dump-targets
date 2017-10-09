@@ -6,6 +6,10 @@ describe('parseVersion', function () {
   it('splits version numbers correctly', function () {
     expect(parseVersion('4.20')).toEqual([4, 20]);
   });
+
+  it('handles version numbers without dots', function () {
+    expect(parseVersion('42')).toEqual([42]);
+  });
 });
 
 describe('compareVersions', function () {
@@ -19,11 +23,13 @@ describe('compareVersions', function () {
 
   it('ignores trailing zeroes', function () {
     expect(compareVersions([1], [1, 0, 0])).toEqual(0);
+    expect(compareVersions([3, 11], [3, 11, 0, 0])).toEqual(0);
   });
 
   it('handles versions with different lengths', function () {
     expect(compareVersions([1, 2], [1])).toBeGreaterThan(0);
     expect(compareVersions([1], [1, 5])).toBeLessThan(0);
+    expect(compareVersions([1, 0], [1, 2])).toBeLessThan(0);
   });
 });
 
