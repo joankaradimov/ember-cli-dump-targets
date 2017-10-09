@@ -26,3 +26,41 @@ describe('compareVersions', function () {
     expect(compareVersions([1], [1, 5])).toBeLessThan(0);
   });
 });
+
+describe('isSupported', function () {
+  let isSupported = versionUtil.isSupported;
+
+  it('detects compatible major versions', function () {
+    expect(isSupported({node: '6'}, {node: '6'})).toBeTruthy();
+    expect(isSupported({node: '6'}, {node: '8'})).toBeTruthy();
+  });
+
+  it('detects compatible minor/patch versions', function () {
+    expect(isSupported({node: '6'}, {node: '6.0'})).toBeTruthy();
+    expect(isSupported({node: '6'}, {node: '6.1'})).toBeTruthy();
+    expect(isSupported({node: '6.0'}, {node: '6'})).toBeTruthy();
+
+    expect(isSupported({node: '6.0.1'}, {node: '6.1.0'})).toBeTruthy();
+    expect(isSupported({node: '6.0.1'}, {node: '6.1'})).toBeTruthy();
+  });
+
+  it('returns true when no targets are specified', function () {
+    expect(isSupported({node: '6'}, {})).toBeTruthy();
+    expect(isSupported({}, {})).toBeTruthy();
+  });
+
+  it('returns false for non-supported versions', function () {
+    expect(isSupported({node: '6'}, {node: '5'})).toBeFalsy();
+    expect(isSupported({node: '5.1'}, {node: '5'})).toBeFalsy();
+  });
+
+  it('returns false for feature hashes without the target client', function () {
+    expect(isSupported({}, {node: '6'})).toBeFalsy();
+    expect(isSupported({firefox: '40'}, {node: '6'})).toBeFalsy();
+  });
+
+  it('handles multiple feature/target clients', function () {
+    expect(isSupported({firefox: '40', node: '6'}, {node: '8'})).toBeTruthy();
+    expect(isSupported({x: '5', y: '6'}, {x: '5', y: '8'})).toBeTruthy();
+  });
+});
